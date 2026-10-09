@@ -10,27 +10,37 @@ feature.
 
 ## Download
 
-1. **[Download denoise for macOS](https://github.com/raiyara/denoise/releases/latest/download/DenoiseApp.dmg)**
+1. **[Download denoise for macOS](https://github.com/raiyara/denoise/releases/latest/download/denoise.dmg)**
    (always the latest version — see [Releases](../../releases) for
    release notes, checksums, and older versions).
-2. Open the `.dmg`, drag **DenoiseApp** into **Applications**.
+2. Open the `.dmg`, drag **denoise** into **Applications**.
 3. Open it from Launchpad or Spotlight. The **first time**, macOS will
-   refuse with *"Apple could not verify… is free of malware"* — that's
-   expected, see below, not a sign anything's wrong.
+   refuse with *"Apple could not verify 'denoise' is free of malware
+   that may harm your Mac or compromise your privacy"* — only options
+   **Move to Trash** or **Done**. That's expected, not a sign anything's
+   wrong — see below for how to actually open it.
 
-### Why macOS warns on first launch
+### Why macOS warns on first launch, and how to open it anyway
 
 This app isn't notarized — that requires a paid Apple Developer account
 ($99/year), which this free tool doesn't have. The app is still signed
 (so macOS can verify it hasn't been tampered with since it was built),
 just not by an Apple-registered identity, so Gatekeeper calls it
-"unidentified."
+"unidentified" and, on current macOS, doesn't offer a bypass in that
+first dialog at all — **Done** just dismisses it.
 
-**To open it anyway:** right-click (or Control-click) **DenoiseApp** in
-Applications → **Open** → **Open** again in the dialog that appears.
-You only need to do this once; after that it opens normally. (On older
-macOS versions this same option appears under **System Settings →
-Privacy & Security** instead.)
+**To open it anyway:**
+1. Click **Done** on the warning (not **Move to Trash**).
+2. Open **System Settings → Privacy & Security**.
+3. Scroll down to the **Security** section — you'll see a line saying
+   denoise was blocked. Click **Open Anyway**.
+4. Authenticate (password or Touch ID), then open the app once more; a
+   final confirmation dialog with a real **Open** button appears.
+
+You only need to do this once; after that it opens normally. (Source:
+[Apple's own support article on this](https://support.apple.com/en-us/102445).
+Right-click → Open → Open used to be a one-step shortcut for this on
+older macOS — it may still work on your version, but don't count on it.)
 
 ## How it works
 
