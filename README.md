@@ -1,100 +1,95 @@
 # denoise
 
-A native macOS app that removes background noise — rain, a fan, hum,
-general room ambience — from a video or audio file's audio track, while
-keeping the voice underneath. Runs fully offline; your file never leaves
-your Mac.
-
-Free, and built as an alternative to paying for CapCut Pro's denoise
-feature.
+Remove background noise (rain, fans, hum, a noisy room) from your videos
+and voice recordings. Your voice stays. It's free, and everything happens
+on your Mac. Nothing is uploaded.
 
 ## Download
 
-1. **[Download denoise for macOS](https://github.com/raiyara/denoise/releases/latest/download/denoise.dmg)**
-   (always the latest version — see [Releases](../../releases) for
-   release notes, checksums, and older versions).
-2. Open the `.dmg`, drag **denoise** into **Applications**.
-3. Open it from Launchpad or Spotlight. The **first time**, macOS will
-   refuse with *"Apple could not verify 'denoise' is free of malware
-   that may harm your Mac or compromise your privacy"* — only options
-   **Move to Trash** or **Done**. That's expected, not a sign anything's
-   wrong — see below for how to actually open it.
+**[Download denoise for Mac](https://github.com/raiyara/denoise/releases/latest/download/denoise.dmg)**
 
-### Why macOS warns on first launch, and how to open it anyway
+Needs a Mac with Apple Silicon (M1 or newer) and macOS 14 or later.
 
-This app isn't notarized — that requires a paid Apple Developer account
-($99/year), which this free tool doesn't have. The app is still signed
-(so macOS can verify it hasn't been tampered with since it was built),
-just not by an Apple-registered identity, so Gatekeeper calls it
-"unidentified" and, on current macOS, doesn't offer a bypass in that
-first dialog at all — **Done** just dismisses it.
+1. Open the downloaded file and drag **denoise** into **Applications**.
+2. Open denoise. The first time, macOS shows a warning. That's expected.
+   Follow the steps below once and you're set.
 
-**To open it anyway:**
+## Opening it the first time
+
 1. Click **Done** on the warning (not **Move to Trash**).
 2. Open **System Settings → Privacy & Security**.
-3. Scroll down to the **Security** section — you'll see a line saying
-   denoise was blocked. Click **Open Anyway**.
-4. Authenticate (password or Touch ID), then open the app once more; a
-   final confirmation dialog with a real **Open** button appears.
+3. Scroll down and click **Open Anyway** next to denoise.
+4. Enter your password, open denoise again, and click **Open**.
 
-You only need to do this once; after that it opens normally. (Source:
-[Apple's own support article on this](https://support.apple.com/en-us/102445).
-Right-click → Open → Open used to be a one-step shortcut for this on
-older macOS — it may still work on your version, but don't count on it.)
+You only do this once. ([Apple's guide to this](https://support.apple.com/en-us/102445))
 
-## How it works
+**Why the warning?** Apple charges developers $99 a year to be verified.
+denoise is free, so it isn't.
 
-`ffmpeg` extracts the audio → [DeepFilterNet3](https://github.com/Rikorose/DeepFilterNet)
-(`deep-filter`) denoises it → `ffmpeg` remuxes the cleaned audio back onto
-the original file (the video stream is always copied, never re-encoded).
-All three binaries are bundled inside the app and statically linked —
-nothing to install separately, no Homebrew required.
+## How to use it
 
-The flow: drop a file → adjust **Strength** (and optionally toggle
-**Extra cleanup**) → **Denoise** → A/B the original against the result,
-each independently playable and scrubbable → **Re-analyze** to try
-different settings, or **Save**.
+1. Drop a video or audio file onto the window.
+2. Use the **Noise removal** slider to choose how much to remove. Turn on
+   **Extra cleanup** for stubborn noise.
+3. Click **Denoise**.
+4. Play the original and the cleaned version to compare. Not happy?
+   Change the settings and click **Re-analyze**.
+5. Click **Save**.
 
-**Save** writes `<name>_denoised.<ext>` next to the source file, in the
-same container and format. If that name is already taken it saves as
-`<name>_denoised 2.<ext>`, `3`, and so on — it never overwrites an
-existing file. For video, the video stream (and any subtitles) is
-copied byte-for-byte, never re-encoded; audio channel count (mono/
-stereo) is preserved from the original.
+## Good to know
 
-**Supported for saving:** `.mp4` `.m4v` `.mov` `.mkv` `.m4a` `.aac`
-`.mp3` `.flac` `.wav` `.aif`/`.aiff` `.w64` `.caf`. A handful of other
-formats this build can *read* (Ogg, WebM, …) don't have a matching
-writer yet — dropping one of those tells you immediately, before
-running the full denoise.
+- denoise saves a new copy next to your original, called
+  *yourfile_denoised*. Your original is never changed, and nothing is
+  ever overwritten.
+- For videos, the picture stays exactly as it was. Only the sound is
+  cleaned.
+- Works with MP4, MOV, M4V, MKV, MP3, M4A, AAC, WAV, AIFF, FLAC, CAF and
+  W64. Ogg and WebM aren't supported yet.
+- denoise never connects to the internet. To get a new version, choose
+  **denoise → Check for Updates…** in the menu bar. It opens this page in
+  your browser.
 
-## Requirements
+## Why I built this
 
-**macOS 14+**, Apple Silicon (M1 or later).
+I was paying for CapCut Pro every month and only used the denoise
+feature, so I built my own.
 
-## Checking for updates
+<details>
+<summary><b>Technical details and licenses</b></summary>
 
-denoise never phones home on its own — **Check for Updates…** (in the
-app's menu) is the only network request the app ever makes, and only
-when you click it; it just opens this repo's [Releases](../../releases)
-page in your browser.
+### How it works
 
-## License
+`ffmpeg` extracts the audio, [DeepFilterNet3](https://github.com/Rikorose/DeepFilterNet)
+(`deep-filter`) removes the noise, and `ffmpeg` puts the cleaned audio
+back into a copy of the original file. Video is copied as-is, never
+re-encoded. All three tools are bundled inside the app, so there's
+nothing else to install.
 
-denoise's own code is MIT — see [`LICENSE`](LICENSE). It bundles three
-third-party binaries with their own licenses — see
-[`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md) (DeepFilterNet3:
-MIT/Apache-2.0; ffmpeg/ffprobe: LGPL-2.1+, built from source with no
-GPL-only components). All license texts, plus the app's own Credits
-panel, ship inside the downloaded app itself
-(`Contents/Resources/Licenses/`) and at the top level of the `.dmg` —
-not just in this repo.
+### Checking your download
+
+Each release has a `.sha256` file next to the `.dmg`. To check the file
+you downloaded matches, put both in the same folder and run:
+
+```sh
+shasum -a 256 -c denoise.dmg.sha256
+```
+
+### License
+
+denoise's own code is MIT, see [`LICENSE`](LICENSE). It bundles
+third-party tools with their own licenses, see
+[`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md): DeepFilterNet3
+(MIT / Apache-2.0) and ffmpeg/ffprobe (LGPL-2.1 or later, built from
+source with no GPL-only parts). All license texts also ship inside the
+app (`Contents/Resources/Licenses/`), in its About window, and at the top
+level of the `.dmg`.
 
 **LGPL source offer:** ffmpeg and LAME are statically linked into the
-bundled `ffmpeg`/`ffprobe`, which the LGPL permits provided the complete
-source and the means to rebuild and relink a modified version are made
-available. [`third-party-source/build_ffmpeg.sh`](third-party-source/build_ffmpeg.sh)
-is that mechanism — the exact upstream version, SHA-256, and `configure`
-flags used — and the precise source tarballs it built from, plus a copy
-of the script itself, are attached as assets to every
-[release](../../releases) alongside the `.dmg`.
+bundled `ffmpeg`/`ffprobe`. The LGPL allows this as long as the complete
+source and the means to rebuild it are available.
+[`third-party-source/build_ffmpeg.sh`](third-party-source/build_ffmpeg.sh)
+is that build script (exact versions, checksums and build settings), and
+the exact source tarballs it used, plus a copy of the script, are
+attached to every [release](../../releases) next to the `.dmg`.
+
+</details>
