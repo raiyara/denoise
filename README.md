@@ -10,7 +10,9 @@ feature.
 
 ## Download
 
-1. Go to [Releases](../../releases) and download the latest `DenoiseApp-*.dmg`.
+1. **[Download denoise for macOS](https://github.com/raiyara/denoise/releases/latest/download/DenoiseApp.dmg)**
+   (always the latest version — see [Releases](../../releases) for
+   release notes, checksums, and older versions).
 2. Open the `.dmg`, drag **DenoiseApp** into **Applications**.
 3. Open it from Launchpad or Spotlight. The **first time**, macOS will
    refuse with *"Apple could not verify… is free of malware"* — that's
