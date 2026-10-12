@@ -23,8 +23,9 @@ Needs a Mac with Apple Silicon (M1 or newer) and macOS 14 or later.
 
 You only do this once. ([Apple's guide to this](https://support.apple.com/en-us/102445))
 
-**Why the warning?** Apple charges developers $99 a year to be verified.
-denoise is free, so it isn't.
+**Why the warning?** Being a registered Apple developer costs $99 a
+year. I built this as a free tool and haven't paid for that, so macOS
+doesn't recognize me yet.
 
 ## How to use it
 
